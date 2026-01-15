@@ -24,22 +24,24 @@ export default function LiveMap() {
   const [userLocation, setUserLocation] = useState(null);
   const [buses, setBuses] = useState([]);
 
-  const API_URL = "http://192.168.0.106:5000/api/buses";
+const API_URL = import.meta.env.VITE_API_URL_BUSES;
 
-  // جلب موقع المستخدم
-  useEffect(() => {
-    if (!navigator.geolocation) return;
+// داخل useEffect
+useEffect(() => {
+  const fetchBuses = async () => {
+    try {
+      const res = await fetch(API_URL);
+      const data = await res.json();
+      setBuses(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setUserLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      },
-      (err) => console.error(err)
-    );
-  }, []);
+  fetchBuses();
+  const interval = setInterval(fetchBuses, 5000);
+  return () => clearInterval(interval);
+}, [API_URL]);
 
   // جلب بيانات الباصات كل 5 ثواني
   useEffect(() => {

@@ -12,6 +12,7 @@ export default function Home() {
   const [userLocation, setUserLocation] = useState(null);
 
   const navigate = useNavigate();
+  const API_URL_BUSES = import.meta.env.VITE_API_URL_BUSES;
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -19,7 +20,7 @@ export default function Home() {
 
     const fetchBuses = async () => {
       try {
-        const res = await fetch("http://192.168.0.106:5000/api/buses");
+        const res = await fetch(API_URL_BUSES);
         const data = await res.json();
         setBuses(data);
       } catch (err) {
@@ -30,7 +31,7 @@ export default function Home() {
     fetchBuses();
     const interval = setInterval(fetchBuses, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [API_URL_BUSES]);
 
   useEffect(() => {
     if (!navigator.geolocation) return;
@@ -49,21 +50,20 @@ export default function Home() {
       const R = 6371e3;
       const dLat = (lat2 - lat1) * Math.PI / 180;
       const dLng = (lng2 - lng1) * Math.PI / 180;
-      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+      const a = Math.sin(dLat/2)**2 +
                 Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                Math.sin(dLng/2) * Math.sin(dLng/2);
+                Math.sin(dLng/2)**2;
       return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     };
 
     const distance = getDistance(userLocation.latitude, userLocation.longitude, userBus.current_lat, userBus.current_lng);
-    setEta(Math.ceil(distance / 400)); // سرعة تقريبية للباص
+    setEta(Math.ceil(distance / 400));
   }, [user, userLocation, buses]);
 
   if (!user) return <div className="loading">Loading...</div>;
 
   return (
     <div className={`home-container ${darkMode ? "dark-mode" : ""}`}>
-      {/* Header Section */}
       <header className="home-header">
         <div className="user-welcome">
           <FaUserCircle className="user-icon" />
@@ -75,7 +75,6 @@ export default function Home() {
         <div className="status-badge">Active</div>
       </header>
 
-      {/* Hero Section / ETA Card */}
       <div className="eta-card">
         <div className="eta-info">
           <FaClock className="icon-pulse" />
@@ -85,7 +84,6 @@ export default function Home() {
         <p className="eta-bus-id">Bus ID: {user.bus_id || "Not Assigned"}</p>
       </div>
 
-      {/* Quick Actions */}
       <div className="actions-grid">
         <button className="action-card" onClick={() => navigate("/dashboard/livemap")}>
           <div className="action-icon map-bg"><FaMapMarkedAlt /></div>
@@ -96,8 +94,6 @@ export default function Home() {
           <span>Schedules</span>
         </button>
       </div>
-
-  
     </div>
   );
 }

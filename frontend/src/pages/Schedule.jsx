@@ -11,7 +11,7 @@ export default function Schedule() {
   const [buses, setBuses] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
 
-  const API_URL = "http://192.168.0.106:5000/api/schedule";
+const API_URL = import.meta.env.VITE_API_URL_SCHEDULE;
 
   // Get user location
   useEffect(() => {

@@ -3,7 +3,7 @@ import './Profile.css';
 import Toggle from '../components/Toggle';
 import Toast from '../components/Toast';
 import { ThemeContext } from '../context/ThemeContext';
-
+const API_URL_PROFILE = import.meta.env.VITE_API_URL_PROFILE;
 // SVG Icons
 const SunIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -83,7 +83,7 @@ const [loading, setLoading] = useState(true);
 const fetchProfile = async () => {
   try {
 const token = localStorage.getItem("token"); // قراءة JWT
-const res = await fetch("http://localhost:5000/api/users/profile", {
+const res = await fetch(`${API_URL_PROFILE}`, {
   method: "GET",
   headers: { Authorization: `Bearer ${token}` },
 });
@@ -126,7 +126,7 @@ const res = await fetch("http://localhost:5000/api/users/profile", {
 
         try {
 
-          await fetch('http://localhost:5000/api/users/profile', {
+          await fetch(`${API_URL_PROFILE}`, {
     method: 'PUT',
     headers: {
         'Content-Type': 'application/json',
@@ -225,7 +225,7 @@ if (showPasswordFields && editForm.newPassword) {
     body.currentPassword = editForm.currentPassword;
     body.newPassword = editForm.newPassword;
 }
-const res = await fetch('http://localhost:5000/api/users/profile', {
+const res = await fetch(`${API_URL_PROFILE}`, {
     method: 'PUT',
     headers: {
         'Content-Type': 'application/json',
