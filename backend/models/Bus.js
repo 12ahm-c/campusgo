@@ -4,7 +4,7 @@ const busSchema = new mongoose.Schema({
   bus_id: {
     type: String,
     required: true,
-    unique: true,
+    // ✅ لم يعد فريدًا، يمكن تكراره لعدة باصات
   },
 
   driver_name: {
@@ -27,6 +27,13 @@ const busSchema = new mongoose.Schema({
 
   last_update: {
     type: Date,
+  },
+
+  // ⚠️ معرف داخلي فريد لكل باص
+  internal_id: {
+    type: String,
+    unique: true,
+    default: () => new mongoose.Types.ObjectId().toString(),
   },
 });
 

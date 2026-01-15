@@ -1,30 +1,16 @@
-import dotenv from "dotenv";
 import mongoose from "mongoose";
-import User from "./models/User.js";
 
-dotenv.config();
+const MONGO_URI = "mongodb+srv://mohamedhadjweiss_db_user:LhC3Qvg0c80zD3vS@cluster0.nuezeew.mongodb.net/bus_tracking?authSource=admin";
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("MongoDB connected");
-  } catch (error) {
-    console.error(error);
-  }
-};
+async function connectDB() {
+    try {
+        await mongoose.connect(MONGO_URI);
+        console.log("✅ MongoDB connected successfully!");
+        process.exit(0);
+    } catch (err) {
+        console.error("❌ MongoDB connection error:", err.message);
+        process.exit(1);
+    }
+}
 
-const createTestUser = async () => {
-  await connectDB();
-
-  const user = new User({
-    name: "Ahmed Test",
-    password: "123456",
-    bus_id: "u01"
-  });
-
-  await user.save();
-  console.log("Test user created!");
-  process.exit();
-};
-
-createTestUser();
+connectDB();

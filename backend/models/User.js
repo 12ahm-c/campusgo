@@ -2,31 +2,34 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
       required: true,
       trim: true,
+      unique: true,
+      index: true
     },
 
     password: {
       type: String,
-      required: true,
+      required: true
     },
 
     bus_id: {
       type: String,
       ref: "Bus",
+      required: true
     },
 
     notifications_enabled: {
       type: Boolean,
-      default: true,
+      default: true
     },
 
     dark_mode: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   { timestamps: true }
 );

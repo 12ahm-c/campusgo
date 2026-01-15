@@ -1,0 +1,158 @@
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #f3f4f7 0%, #e2e8f0 100%);
+  font-family: 'Inter', -apple-system, sans-serif;
+  padding: 20px;
+}
+
+.signup-card {
+  background: #ffffff;
+  padding: 45px 35px;
+  border-radius: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.signup-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.signup-title {
+  color: #1a202c;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.signup-subtitle {
+  color: #718096;
+  font-size: 14px;
+}
+
+.signup-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #edf2f7;
+  border-radius: 12px;
+  font-size: 15px;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+.signup-input:focus {
+  border-color: #4f46e5;
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+.signup-error-box {
+  background-color: #fff5f5;
+  color: #c53030;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  border: 1px solid #feb2b2;
+  text-align: center;
+}
+
+.signup-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #4f46e5;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signup-button:hover:not(:disabled) {
+  background-color: #4338ca;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.signup-button:disabled {
+  background-color: #a5b4fc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.signup-footer {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.signup-link {
+  color: #4f46e5;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+.login-card, .signup-card {
+  /* 1. تصغير العرض الأقصى من 400px إلى 340px */
+  max-width: 340px; 
+  
+  /* 2. تقليل الحشوة الداخلية لتوفير مساحة */
+  padding: 30px 25px; 
+  
+  background: #ffffff;
+  border-radius: 20px; /* تقليل الانحناء قليلاً ليتناسب مع الحجم الصغير */
+  box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.08);
+}
+
+.login-title, .signup-title {
+  /* 3. تصغير حجم الخط للعناوين */
+  font-size: 24px; 
+  margin-bottom: 5px;
+}
+
+.login-subtitle, .signup-subtitle {
+  /* 4. تصغير حجم النص الفرعي */
+  font-size: 13px;
+  margin-bottom: 25px;
+}
+
+.login-input, .signup-input {
+  /* 5. جعل الحقول أقل ارتفاعاً */
+  padding: 10px 14px; 
+  font-size: 14px;
+  margin-bottom: 12px; /* تقليل المسافة بين الحقول */
+}
+
+.login-button, .signup-button {
+  /* 6. تصغير الزر */
+  padding: 12px;
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+.login-footer, .signup-footer {
+  /* 7. تقليل الهامش العلوي للتذييل */
+  margin-top: 15px;
+  font-size: 13px;
+}
