@@ -1,6 +1,7 @@
+// server.js
+import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import express from "express";
 import connectDB from "./config/db.js";
 
 import authRoutes from "./routes/auth.js";
@@ -14,10 +15,25 @@ connectDB();
 
 const app = express();
 
-// ✅ إعداد CORS صحيح للسماح بالكوكيز
+// ==========================
+// CORS Configuration
+// ==========================
+const allowedOrigins = [
+  "http://localhost:5173",        // dev
+  "https://campusgo-ck9g.vercel.app", // frontend deployed
+];
+
 const corsOptions = {
-  origin: "http://localhost:5173", // عنوان الفرونتند
-  credentials: true,              // مهم للسماح بإرسال الكوكيز مع الطلبات
+  origin: function (origin, callback) {
+    // allow requests with no origin (like Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = `CORS policy: This origin (${origin}) is not allowed.`;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true, // مهم لإرسال الكوكيز / JWT
 };
 
 app.use(cors(corsOptions));
@@ -32,6 +48,9 @@ app.use("/api/buses", busRoutes);
 app.use("/api/schedule", scheduleRoutes);
 app.use("/api/notifications", notificationRoutes);
 
+// ==========================
+// Start server
+// ==========================
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
