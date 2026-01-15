@@ -23,12 +23,11 @@ export default function Signup() {
     }
 
     try {
-      const res = await fetch("http://192.168.0.106:5000/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password, bus_id: busId }),
-      });
-
+const res = await fetch(`${import.meta.env.VITE_API_URL_AUTH}/register`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ username, password, bus_id: busId }),
+});
       const data = await res.json();
 
       if (!res.ok) {
