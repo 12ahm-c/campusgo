@@ -20,7 +20,7 @@ const app = express();
 // ==========================
 const allowedOrigins = [
   "http://localhost:5173",        // dev
-  "https://campusgo-5e7z.vercel.app", // frontend deployed
+  "https://campusgo-ck9g.vercel.app", // frontend deployed
 ];
 
 const corsOptions = {
