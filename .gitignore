@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Node
 node_modules/
 npm-debug.log*
@@ -8,6 +9,8 @@ npm-debug.log*
 # Vite
 dist/
 
+=======
+>>>>>>> 8e87868169c6ccf2599b73c702fa65d793e698f5
 # Logs
 logs
 *.log
