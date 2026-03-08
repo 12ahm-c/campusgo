@@ -472,3 +472,73 @@
     gap: 10px;
   }
 }
+
+/* --- Dark Mode Overrides for Home Page --- */
+.dark-mode .upcoming-departures-section,
+.dark-mode .info-card {
+  background: #1e293b;
+  /* Match navy card bg */
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .section-header-flex h3,
+.dark-mode .info-card-header h3,
+.dark-mode .route-name,
+.dark-mode .dest-col,
+.dark-mode .table-row,
+.dark-mode .eta-col strong,
+.dark-mode .alert-content h4 {
+  color: #f1f5f9;
+}
+
+.dark-mode .table-header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+}
+
+.dark-mode .table-row {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .route-status-item {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .alert-item {
+  background: rgba(234, 88, 12, 0.1);
+  border-color: rgba(234, 88, 12, 0.2);
+}
+
+.dark-mode .alert-content p,
+.dark-mode .eta-col span {
+  color: #cbd5e1;
+}
+
+.dark-mode .active-badge {
+  background: rgba(22, 163, 74, 0.2);
+  color: #4ade80;
+}
+
+.dark-mode .route-a,
+.dark-mode .box-a {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.dark-mode .route-b,
+.dark-mode .box-b {
+  background: rgba(168, 85, 247, 0.2);
+  color: #c084fc;
+}
+
+.dark-mode .route-c,
+.dark-mode .box-c {
+  background: rgba(249, 115, 22, 0.2);
+  color: #fb923c;
+}
+
+.dark-mode .icon-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
