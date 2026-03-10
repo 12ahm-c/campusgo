@@ -37,9 +37,6 @@ export default function Dashboard() {
             <div className="logo-box">🚌</div>
             <h1 className="logo-text">Campus<span>Go</span></h1>
           </div>
-          <button className="close-sidebar mobile-only" onClick={closeSidebar}>
-            <MdClose />
-          </button>
         </div>
 
         <nav className="nav-menu">

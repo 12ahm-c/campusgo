@@ -6,6 +6,7 @@ import Profile from "./pages/Profile"; // مثال لإضافة صفحة Profile
 
 // ⬅️ استيراد ThemeProvider
 import { ThemeProvider } from "./context/ThemeContext";
+import Welcome from "./pages/Welcome";
 
 // ⬅️ HOC للتحقق من تسجيل الدخول
 const ProtectedRoute = ({ children }) => {
@@ -21,6 +22,7 @@ function App() {
         <Routes>
 
           {/* صفحات تسجيل الدخول والتسجيل */}
+          <Route path="/" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 

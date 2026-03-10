@@ -43,22 +43,7 @@ useEffect(() => {
   return () => clearInterval(interval);
 }, [API_URL]);
 
-  // جلب بيانات الباصات كل 5 ثواني
-  useEffect(() => {
-    const fetchBuses = async () => {
-      try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
-        setBuses(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchBuses();
-    const interval = setInterval(fetchBuses, 5000);
-    return () => clearInterval(interval);
-  }, []);
+ 
 
   const userBus = buses.find((b) => b.bus_id === parsedUser.bus_id);
 
