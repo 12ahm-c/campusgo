@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { NavLink, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
-import { MdHome, MdMap, MdSchedule, MdPerson, MdMenu, MdClose, MdLogout } from "react-icons/md";
+import { MdOutlineDashboard, MdOutlineMap, MdOutlineCalendarToday, MdOutlinePersonOutline, MdMenu, MdClose, MdLogout, MdDirectionsBus } from "react-icons/md";
 import "./Dashboard.css";
 
 import Home from "./Home";
@@ -10,10 +10,10 @@ import Profile from "./Profile";
 import { ThemeContext } from "../context/ThemeContext";
 
 const navItems = [
-  { to: "/dashboard/Home", label: "Overview", icon: MdHome },
-  { to: "/dashboard/livemap", label: "Live Tracking", icon: MdMap },
-  { to: "/dashboard/schedule", label: "Bus Schedule", icon: MdSchedule },
-  { to: "/dashboard/profile", label: "My Profile", icon: MdPerson },
+  { to: "/dashboard/Home", label: "Overview", icon: MdOutlineDashboard },
+  { to: "/dashboard/livemap", label: "Live Tracking", icon: MdOutlineMap },
+  { to: "/dashboard/schedule", label: "Bus Schedule", icon: MdOutlineCalendarToday },
+  { to: "/dashboard/profile", label: "My Profile", icon: MdOutlinePersonOutline },
 ];
 
 export default function Dashboard() {
@@ -29,12 +29,12 @@ export default function Dashboard() {
 
   return (
     <div className={`dashboard-layout ${darkMode ? "dark-mode" : ""}`}>
-      
+
       {/* Sidebar */}
       <aside className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <div className="sidebar-header">
           <div className="logo-section">
-            <div className="logo-box">🚌</div>
+            <div className="logo-box"><MdDirectionsBus /></div>
             <h1 className="logo-text">Campus<span>Go</span></h1>
           </div>
         </div>
