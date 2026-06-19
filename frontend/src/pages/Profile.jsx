@@ -48,28 +48,28 @@ const KeyIcon = () => (
 
 const Profile = ({ onLogout }) => {
 
-  const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
 
     // Dark Mode الآن من ThemeContext
     const { darkMode, setDarkMode } = useContext(ThemeContext);
 
     const [pushNotifications, setPushNotifications] = useState(true);
 
-const [student, setStudent] = useState({
-    username: '',   // بدل name
-    isOnline: true,
-    bus_id: ''
-});
+    const [student, setStudent] = useState({
+        username: '',   // بدل name
+        isOnline: true,
+        bus_id: ''
+    });
 
-const [editForm, setEditForm] = useState({
-    username: '',       // بدل name
-    bus_id: '',
-    currentPassword: '', // جديد لتغيير كلمة المرور
-    newPassword: '',     // جديد لتغيير كلمة المرور
-    confirmPassword: ''  // جديد لتأكيد كلمة المرور
-});
+    const [editForm, setEditForm] = useState({
+        username: '',       // بدل name
+        bus_id: '',
+        currentPassword: '', // جديد لتغيير كلمة المرور
+        newPassword: '',     // جديد لتغيير كلمة المرور
+        confirmPassword: ''  // جديد لتأكيد كلمة المرور
+    });
 
-const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
 
     const [showPasswordFields, setShowPasswordFields] = useState(false);
@@ -80,45 +80,45 @@ const [loading, setLoading] = useState(true);
         fetchProfile();
     }, []);
 
-const fetchProfile = async () => {
-  try {
-const token = localStorage.getItem("token"); // قراءة JWT
-const res = await fetch(`${API_URL_PROFILE}`, {
-  method: "GET",
-  headers: { Authorization: `Bearer ${token}` },
-});
-    const data = await res.json();
+    const fetchProfile = async () => {
+        try {
+            const token = localStorage.getItem("token"); // قراءة JWT
+            const res = await fetch(`${API_URL_PROFILE}`, {
+                method: "GET",
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const data = await res.json();
 
-    if (res.ok) {
-      setStudent(prev => ({
-        ...prev,
-        username: data.username,
-        bus_id: data.bus_id,
-        studentId: data.bus_id,
-      }));
+            if (res.ok) {
+                setStudent(prev => ({
+                    ...prev,
+                    username: data.username,
+                    bus_id: data.bus_id,
+                    studentId: data.bus_id,
+                }));
 
-      setPushNotifications(data.notifications_enabled ?? true);
+                setPushNotifications(data.notifications_enabled ?? true);
 
-      setEditForm({
-        username: data.username,
-        bus_id: data.bus_id || "",
-        currentPassword: "",
-        newPassword: "",
-        confirmPassword: "",
-      });
+                setEditForm({
+                    username: data.username,
+                    bus_id: data.bus_id || "",
+                    currentPassword: "",
+                    newPassword: "",
+                    confirmPassword: "",
+                });
 
-      if (data.dark_mode !== undefined) {
-        setDarkMode(data.dark_mode);
-      }
-    } else {
-      console.error("Failed to fetch profile:", data.message);
-    }
-  } catch (error) {
-    console.error("Error fetching profile:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+                if (data.dark_mode !== undefined) {
+                    setDarkMode(data.dark_mode);
+                }
+            } else {
+                console.error("Failed to fetch profile:", data.message);
+            }
+        } catch (error) {
+            console.error("Error fetching profile:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
     const handlePreferenceUpdate = async (key, value) => {
         // تحديث Dark Mode أو Notifications
         if (key === 'dark_mode') setDarkMode(value);
@@ -126,24 +126,29 @@ const res = await fetch(`${API_URL_PROFILE}`, {
 
         try {
 
-          await fetch(`${API_URL_PROFILE}`, {
-    method: 'PUT',
-    headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-    body: JSON.stringify({ [key]: value }),
-});
-     } catch (error) {
+            await fetch(`${API_URL_PROFILE}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify({ [key]: value }),
+            });
+        } catch (error) {
             console.error('Error updating preference:', error);
             if (key === 'dark_mode') setDarkMode(!value);
             if (key === 'notifications_enabled') setPushNotifications(!value);
             setToast({ show: true, message: `Failed to save setting: ${error.message}`, type: 'error' });
         }
     };
-        const handleEditClick = () => {
+    const handleEditClick = () => {
         setIsEditing(true);
         setShowPasswordFields(false); // Reset password fields visibility
+    };
+
+    const handlePasswordClick = () => {
+        setIsEditing(true);
+        setShowPasswordFields(true);
     };
 
     const handleCloseModal = () => {
@@ -216,39 +221,39 @@ const res = await fetch(`${API_URL_PROFILE}`, {
         }
 
         try {
-const body = {
-    username: editForm.username, // بدل name
-    bus_id: editForm.bus_id
-};
+            const body = {
+                username: editForm.username, // بدل name
+                bus_id: editForm.bus_id
+            };
 
-if (showPasswordFields && editForm.newPassword) {
-    body.currentPassword = editForm.currentPassword;
-    body.newPassword = editForm.newPassword;
-}
-const res = await fetch(`${API_URL_PROFILE}`, {
-    method: 'PUT',
-    headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-    body: JSON.stringify(body),
-});
+            if (showPasswordFields && editForm.newPassword) {
+                body.currentPassword = editForm.currentPassword;
+                body.newPassword = editForm.newPassword;
+            }
+            const res = await fetch(`${API_URL_PROFILE}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify(body),
+            });
             const data = await res.json();
 
             if (res.ok) {
-setStudent(prev => ({
-    ...prev,
-    username: data.username, // بدل name
-    bus_id: data.bus_id
-}));
+                setStudent(prev => ({
+                    ...prev,
+                    username: data.username, // بدل name
+                    bus_id: data.bus_id
+                }));
 
-setEditForm({
-    username: data.username,  // بدل name
-    bus_id: data.bus_id || '',
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: ''
-});                setNameError({ hasError: false, suggestedName: '' });
+                setEditForm({
+                    username: data.username,  // بدل name
+                    bus_id: data.bus_id || '',
+                    currentPassword: '',
+                    newPassword: '',
+                    confirmPassword: ''
+                }); setNameError({ hasError: false, suggestedName: '' });
                 setToast({ show: true, message: "Profile updated successfully!", type: 'success' });
             } else {
                 // Check if it's a duplicate name error
@@ -283,10 +288,7 @@ setEditForm({
     return (
         <div className={`profile-page ${darkMode ? 'dark-mode' : ''}`}>
             <div className="profile-container">
-                {/* Header */}
-                <header className="profile-header">
-                    <h3 className="page-title">Profile</h3>
-                </header>
+
 
                 {/* Student Profile Card */}
                 <div className="student-card">
@@ -302,57 +304,81 @@ setEditForm({
                         <h2 className="student-name">{student.username}</h2>
                         <div className="student-id-bus">
                             <span className="status-dot"></span>
-<span className="id-label">ID Bus:</span> {student.bus_id}     
-                   </div>
+                            <span className="id-label">ID Bus:</span> {student.bus_id}
+                        </div>
                     </div>
                 </div>
 
                 {/* Preferences Section */}
                 <section className="settings-section">
-                    <h3 className="section-title">PREFERENCES</h3>
-                    <div className="settings-group">
-                        <Toggle
-                            id="dark-mode"
-                            label="Dark Mode"
-                            icon={darkMode ? <MoonIcon /> : <SunIcon />}
-                            checked={darkMode}
-                            onChange={(val) => handlePreferenceUpdate('dark_mode', val)}
-                        />
-                        <div className="setting-divider"></div>
-                        <Toggle
-                            id="push-notifications"
-                            label="Notifications"
-                            icon={<BellIcon />}
-                            checked={pushNotifications}
-                            onChange={(val) => handlePreferenceUpdate('notifications_enabled', val)}
-                        />
+                    <h3 className="section-title">Preferences</h3>
+                    <div className="preferences-grid">
+                        <div className="pref-card">
+                            <div className="pref-info">
+                                <div className="pref-header">
+                                    <span className={`pref-icon ${darkMode ? 'icon-moon' : 'icon-sun'}`}>{darkMode ? <MoonIcon /> : <SunIcon />}</span>
+                                    <span className="pref-title">Dark Mode</span>
+                                </div>
+                                <p className="pref-desc">Adjust the interface theme</p>
+                            </div>
+                            <div className="pref-toggle">
+                                <Toggle
+                                    id="dark-mode"
+                                    checked={darkMode}
+                                    onChange={(val) => handlePreferenceUpdate('dark_mode', val)}
+                                />
+                            </div>
+                        </div>
+                        <div className="pref-card">
+                            <div className="pref-info">
+                                <div className="pref-header">
+                                    <span className="pref-icon icon-bell"><BellIcon /></span>
+                                    <span className="pref-title">Notifications</span>
+                                </div>
+                                <p className="pref-desc">Real-time arrival alerts</p>
+                            </div>
+                            <div className="pref-toggle">
+                                <Toggle
+                                    id="push-notifications"
+                                    checked={pushNotifications}
+                                    onChange={(val) => handlePreferenceUpdate('notifications_enabled', val)}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                {/* Account Section */}
+                {/* Account Settings Section */}
                 <section className="settings-section">
-                    <h3 className="section-title">ACCOUNT</h3>
-                    <div className="settings-group">
-                        <button className="settings-item" onClick={handleEditClick}>
-                            <div className="settings-item-content">
-                                <span className="settings-icon"><SettingsIcon /></span>
-                                <span className="settings-label">General Settings</span>
+                    <h3 className="section-title">Account Settings</h3>
+                    <div className="account-group">
+                        <button className="account-item" onClick={handleEditClick}>
+                            <div className="account-item-left">
+                                <div className="account-icon-box"><SettingsIcon /></div>
+                                <div className="account-text-group">
+                                    <h4>General</h4>
+                                    <p>Account details and student info</p>
+                                </div>
                             </div>
-                            <span className="chevron">›</span>
+                            <span className="account-chevron">›</span>
                         </button>
                         <div className="setting-divider"></div>
-                        <button className="settings-item destructive" onClick={handleSignOut}>
-                            <div className="settings-item-content">
-                                <span className="settings-icon destructive"><SignOutIcon /></span>
-                                <span className="settings-label">Sign Out</span>
+                        <button className="account-item" onClick={handlePasswordClick}>
+                            <div className="account-item-left">
+                                <div className="account-icon-box"><KeyIcon /></div>
+                                <div className="account-text-group">
+                                    <h4>Change Password</h4>
+                                    <p>Update your security credentials</p>
+                                </div>
                             </div>
+                            <span className="account-chevron">›</span>
                         </button>
                     </div>
                 </section>
 
                 {/* Footer */}
                 <footer className="app-footer">
-                    <p className="app-version">Bus App v1.1.0</p>
+                    <p className="app-version">CampusGo App v1.1.0</p>
                 </footer>
             </div>
 
@@ -399,13 +425,6 @@ setEditForm({
                                             onChange={handleInputChange}
                                         />
                                     </div>
-                                    <button
-                                        type="button"
-                                        className="change-password-btn"
-                                        onClick={() => setShowPasswordFields(true)}
-                                    >
-                                        <span style={{ marginRight: '8px', color: '#10B981', display: 'flex' }}><KeyIcon /></span> Change Password
-                                    </button>
                                 </>
                             )}
 
